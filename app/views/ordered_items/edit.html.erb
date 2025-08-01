@@ -1,0 +1,12 @@
+<% content_for :title, "Editing ordered item" %>
+
+<h1>Editing ordered item</h1>
+
+<%= render "form", ordered_item: @ordered_item %>
+
+<br>
+
+<div>
+  <%= link_to "Show this ordered item", @ordered_item %> |
+  <%= link_to "Back to ordered items", ordered_items_path %>
+</div>

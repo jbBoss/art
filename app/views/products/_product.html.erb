@@ -1,0 +1,36 @@
+<div id="<%= dom_id product %>" class="product-card">
+  <p>
+    <strong>Name:</strong>
+    <%= product.name %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= product.description %>
+  </p>
+
+<p>
+  <strong>Price:</strong>
+  <%= number_to_currency(product.price_in_cents.to_f / 100) %>
+</p>
+
+
+  <p>
+    <strong>Active:</strong>
+    <%= product.active %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+      <%= product.category&.name %>
+  </p>
+
+  <% if product.main_image.attached? %>
+    <p>
+      <%= image_tag product.main_image, style: "width: 200px; display: block;" %>
+    </p>
+  <% end %>
+<p>
+      <%= link_to "View", product %>
+    </p>
+</div>

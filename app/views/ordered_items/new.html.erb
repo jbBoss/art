@@ -1,0 +1,11 @@
+<% content_for :title, "New ordered item" %>
+
+<h1>New ordered item</h1>
+
+<%= render "form", ordered_item: @ordered_item %>
+
+<br>
+
+<div>
+  <%= link_to "Back to ordered items", ordered_items_path %>
+</div>

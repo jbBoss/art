@@ -1,0 +1,94 @@
+
+ActiveRecord::Base.connection.tables.each do |table|
+  puts "Table: #{table}"
+  columns = ActiveRecord::Base.connection.columns(table)
+  columns.each do |column|
+    puts "  #{column.name}: #{column.sql_type}"
+  end
+end
+
+
+Table: ordered_items
+  id: INTEGER
+  quantity: INTEGER
+  price_in_cents: INTEGER
+  order_id: INTEGER
+  product_id: INTEGER
+  created_at: datetime(6)
+  updated_at: datetime(6)
+Table: orders
+  id: INTEGER
+  status: varchar
+  total_in_cents: INTEGER
+  stripe_payment_id: varchar
+  user_id: INTEGER
+  created_at: datetime(6)
+  updated_at: datetime(6)
+Table: categories
+  id: INTEGER
+  name: varchar
+  created_at: datetime(6)
+  updated_at: datetime(6)
+Table: products
+  id: INTEGER
+  name: varchar
+  description: TEXT
+  price_in_cents: INTEGER
+  active: boolean
+  category_id: INTEGER
+  created_at: datetime(6)
+  updated_at: datetime(6)
+Table: admin_users
+  id: INTEGER
+  email: varchar
+  encrypted_password: varchar
+  reset_password_token: varchar
+  reset_password_sent_at: datetime(6)
+  remember_created_at: datetime(6)
+  created_at: datetime(6)
+  updated_at: datetime(6)
+Table: provinces
+  id: INTEGER
+  name: varchar
+  gst_rate: decimal
+  pst_rate: decimal
+  hst_rate: decimal
+  created_at: datetime(6)
+  updated_at: datetime(6)
+Table: active_admin_comments
+  id: INTEGER
+  namespace: varchar
+  body: TEXT
+  resource_type: varchar
+  resource_id: INTEGER
+  author_type: varchar
+  author_id: INTEGER
+  created_at: datetime(6)
+  updated_at: datetime(6)
+Table: schema_migrations
+  version: varchar
+Table: ar_internal_metadata
+  key: varchar
+  value: varchar
+  created_at: datetime(6)
+  updated_at: datetime(6)
+Table: users
+  id: INTEGER
+  email: varchar
+  encrypted_password: varchar
+  reset_password_token: varchar
+  reset_password_sent_at: datetime(6)
+  remember_created_at: datetime(6)
+  created_at: datetime(6)
+  updated_at: datetime(6)
+
+=> ["ordered_items",
+"orders",
+"categories",
+"products",
+"admin_users",
+"provinces",
+"active_admin_comments",
+"schema_migrations",
+"ar_internal_metadata",
+"users"]

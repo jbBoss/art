@@ -1,0 +1,22 @@
+<div id="<%= dom_id order %>">
+  <p>
+    <strong>Status:</strong>
+    <%= order.status %>
+  </p>
+
+  <p>
+    <strong>Total in cents:</strong>
+    <%= order.total_in_cents %>
+  </p>
+
+  <p>
+    <strong>Stripe payment:</strong>
+    <%= order.stripe_payment_id %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= order.user_id %>
+  </p>
+
+</div>

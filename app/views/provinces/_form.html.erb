@@ -1,0 +1,37 @@
+<%= form_with(model: province) do |form| %>
+  <% if province.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(province.errors.count, "error") %> prohibited this province from being saved:</h2>
+
+      <ul>
+        <% province.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :gst_rate, style: "display: block" %>
+    <%= form.text_field :gst_rate %>
+  </div>
+
+  <div>
+    <%= form.label :pst_rate, style: "display: block" %>
+    <%= form.text_field :pst_rate %>
+  </div>
+
+  <div>
+    <%= form.label :hst_rate, style: "display: block" %>
+    <%= form.text_field :hst_rate %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

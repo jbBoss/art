@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get "database_viewer/index"
   get "database_viewer/show"
-   root "home#index"
+  root "home#index"
   get "home/index"
   resources :ordered_items
   resources :orders
@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users
+
+  get 'cart', to: 'carts#show'
 
   get 'database_viewer', to: 'database_viewer#index'
   get 'database_viewer/:table_name', to: 'database_viewer#show', as: 'database_table'
@@ -27,4 +29,16 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  # config/routes.rb
+
+  # Shows the cart contents
+  resource :cart, only: [:show]
+
+  # Defines routes for adding/removing items
+  # POST /cart/add/:product_id -> adds an item
+  # DELETE /cart/remove/:product_id -> removes an item
+  post 'cart/add/:product_id', to: 'carts#add_item', as: 'cart_add'
+  delete 'cart/remove/:product_id', to: 'carts#remove_item', as: 'cart_remove'
+
+
 end

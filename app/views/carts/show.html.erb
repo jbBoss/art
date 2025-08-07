@@ -1,0 +1,32 @@
+<%# app/views/carts/show.html.erb %>
+
+<h1>Your Shopping Cart</h1>
+
+<% if @cart_items.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= session[:cart][item.id.to_s] %></td>
+          <td><%= number_to_currency(item.price_in_cents / 100.0) %></td>
+          <td>
+            <%= button_to "Remove", cart_remove_path(item), method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%# You will add totals and a "Proceed to Checkout" button here in the next step %>
+<% else %>
+  <p>Your cart is empty.</p>
+<% end %>

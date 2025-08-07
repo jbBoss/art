@@ -1,10 +1,52 @@
-<p style="color: green"><%= notice %></p>
+<%# app/views/orders/show.html.erb %>
 
-<%= render @order %>
 
-<div>
-  <%= link_to "Edit this order", edit_order_path(@order) %> |
-  <%= link_to "Back to orders", orders_path %>
+<div class="invoice-box">
+  <h1>Order Details</h1>
+  <p style="color: green; text-align: center;"><%= notice %></p>
 
-  <%= button_to "Destroy this order", @order, method: :delete %>
+  <table class="details">
+    <tr>
+      <td>
+        <strong>Order ID:</strong> <%= @order.stripe_payment_id %><br>
+        <strong>Order Date:</strong> <%= @order.created_at.strftime("%B %d, %Y") %><br>
+        <strong>Status:</strong> <%= @order.status %>
+      </td>
+      <td class="right-align">
+        <strong>Billed to:</strong><br>
+        <%= @order.user.name %><br>
+        <%= @order.user.address %>
+      </td>
+    </tr>
+  </table>
+
+  <table class="items-table">
+    <thead>
+      <tr style="background-color: #f9f9f9;">
+        <th>Item</th>
+        <th>Quantity</th>
+        <th class="right-align">Price Paid</th>
+        <th class="right-align">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.ordered_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td><%= item.quantity %></td>
+          <td class="right-align"><%= number_to_currency(item.price_in_cents / 100.0) %></td>
+          <td class="right-align"><%= number_to_currency((item.price_in_cents * item.quantity) / 100.0) %></td>
+        </tr>
+      <% end %>
+
+      <tr class="total-row">
+        <td colspan="3" class="right-align">Grand Total</td>
+        <td class="right-align"><strong><%= number_to_currency(@order.total_in_cents / 100.0) %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="text-align: center; margin-top: 40px;">
+    <%= link_to "Back to My Orders", orders_path %>
+  </div>
 </div>

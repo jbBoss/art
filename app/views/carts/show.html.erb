@@ -53,6 +53,12 @@
     <p><strong>Total: <%= number_to_currency(@total / 100.0) %></strong></p>
   </div>
 
+  <% if @cart_items.any? %>
+  <div style="text-align: right; margin-top: 20px;">
+    <%= link_to "Confirm and Checkout", new_order_path, class: "checkout-button" %>
+  </div>
+<% end %>
+
 <% else %>
   <p>Your cart is empty.</p>
 <% end %>

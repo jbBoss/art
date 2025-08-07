@@ -52,3 +52,51 @@ body{
 
 }
 /* <------------------------------------------------------------------> */
+/* search and filter  */
+  .search-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border: 1px solid #e3e6f0;
+  }
+  .search-form .form-group {
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: top;
+  }
+  .search-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #5a5c69;
+  }
+  .search-form input[type="text"], .search-form select {
+    padding: 10px;
+    border: 1px solid #d1d3e2;
+    border-radius: 4px;
+    min-width: 200px;
+  }
+  .search-form input[type="submit"] {
+    padding: 11px 20px;
+    background-color: #4e73df;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    vertical-align: bottom;
+    transition: background-color 0.15s ease-in-out;
+  }
+  .search-form input[type="submit"]:hover {
+    background-color: #2e59d9;
+  }
+/* <------------------------------------------------------------------> */
+  .invoice-box { max-width: 800px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-size: 16px; line-height: 24px; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; }
+  .invoice-box h1 { font-size: 24px; text-align: center; margin-bottom: 20px; }
+  .invoice-box .details { margin-bottom: 30px; }
+  .invoice-box .details, .invoice-box .items-table { width: 100%; }
+  .invoice-box .items-table th, .invoice-box .items-table td { border-bottom: 1px solid #eee; padding: 5px; text-align: left; }
+  .invoice-box .items-table .total-row td { border-top: 2px solid #aaa; font-weight: bold; }
+  .right-align { text-align: right; }
+/* <------------------------------------------------------------------> */
+

@@ -27,6 +27,7 @@
   <body>
   <% if user_signed_in? %>
     <p>Welcome, <%= current_user.name %>!</p>
+     <%= link_to "My Orders", orders_path %>
   <% else %>
     <p>Welcome, Guest!</p>
   <% end %>

@@ -1,11 +1,82 @@
-<% content_for :title, "New order" %>
+<%# app/views/orders/new.html.erb %>
 
-<h1>New order</h1>
+<style>
+  .invoice-box { max-width: 800px; margin: auto; padding: 30px; border: 1px solid #eee; box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); font-size: 16px; line-height: 24px; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; }
+  .invoice-box h1 { font-size: 24px; text-align: center; margin-bottom: 20px; }
+  .invoice-box .details { margin-bottom: 30px; }
+  .invoice-box .details, .invoice-box .items-table { width: 100%; }
+  .invoice-box .items-table th, .invoice-box .items-table td { border-bottom: 1px solid #eee; padding: 5px; text-align: left; }
+  .invoice-box .items-table .total-row td { border-top: 2px solid #aaa; font-weight: bold; }
+  .right-align { text-align: right; }
+</style>
 
-<%= render "form", order: @order %>
+<div class="invoice-box">
+  <h1>Order Summary</h1>
 
-<br>
+  <table class="details">
+    <tr>
+      <td>
+        <strong>Delivery Details</strong><br>
+        <%= current_user.name %><br>
+        <%= current_user.address %>
+      </td>
+      <td class="right-align">
+        <strong>Order Date:</strong> <%= Time.zone.now.strftime("%B %d, %Y") %><br>
+      </td>
+    </tr>
+  </table>
 
-<div>
-  <%= link_to "Back to orders", orders_path %>
+  <table class="items-table">
+    <thead>
+      <tr style="background-color: #f9f9f9;">
+        <th>Item</th>
+        <th>Quantity</th>
+        <th class="right-align">Price</th>
+        <th class="right-align">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |item| %>
+        <% quantity = session[:cart][item.id.to_s] %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= quantity %></td>
+          <td class="right-align"><%= number_to_currency(item.price_in_cents / 100.0) %></td>
+          <td class="right-align"><%= number_to_currency((item.price_in_cents * quantity) / 100.0) %></td>
+        </tr>
+      <% end %>
+
+      <tr class="total-row">
+        <td colspan="3" class="right-align">Subtotal</td>
+        <td class="right-align"><%= number_to_currency(@subtotal / 100.0) %></td>
+      </tr>
+      <% if @gst > 0 %>
+      <tr>
+        <td colspan="3" class="right-align">GST (<%= number_to_percentage(@province.gst_rate * 100, precision: 2) %>)</td>
+        <td class="right-align"><%= number_to_currency(@gst / 100.0) %></td>
+      </tr>
+      <% end %>
+      <% if @pst > 0 %>
+      <tr>
+        <td colspan="3" class="right-align">PST (<%= number_to_percentage(@province.pst_rate * 100, precision: 2) %>)</td>
+        <td class="right-align"><%= number_to_currency(@pst / 100.0) %></td>
+      </tr>
+      <% end %>
+      <% if @hst > 0 %>
+      <tr>
+        <td colspan="3" class="right-align">HST (<%= number_to_percentage(@province.hst_rate * 100, precision: 2) %>)</td>
+        <td class="right-align"><%= number_to_currency(@hst / 100.0) %></td>
+      </tr>
+      <% end %>
+      <tr class="total-row">
+        <td colspan="3" class="right-align">Grand Total</td>
+        <td class="right-align"><%= number_to_currency(@total / 100.0) %></td>
+      </tr>
+    </tbody>
+  </table>
+
+<div style="text-align: center; margin-top: 40px;">
+  <%# This button now submits a POST request to the orders_path (OrdersController#create) %>
+  <%= button_to "Pay", orders_path, method: :post, class: "payment-button" %>
+</div>
 </div>

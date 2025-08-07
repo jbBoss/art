@@ -20,6 +20,13 @@ Rails.application.routes.draw do
   post 'cart/increase/:product_id', to: 'carts#increase_quantity', as: 'cart_increase'
   post 'cart/decrease/:product_id', to: 'carts#decrease_quantity', as: 'cart_decrease'
 
+
+
+resources :orders, only: [:new, :create]
+
+
+
+resources :orders, only: [:new, :create, :index, :show]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

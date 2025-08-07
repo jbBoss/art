@@ -9,24 +9,50 @@
         <th>Product</th>
         <th>Quantity</th>
         <th>Price</th>
-        <th>Actions</th>
+        <th>Total</th>
       </tr>
     </thead>
     <tbody>
       <% @cart_items.each do |item| %>
+        <% quantity = session[:cart][item.id.to_s] %>
         <tr>
           <td><%= item.name %></td>
-          <td><%= session[:cart][item.id.to_s] %></td>
-          <td><%= number_to_currency(item.price_in_cents / 100.0) %></td>
           <td>
-            <%= button_to "Remove", cart_remove_path(item), method: :delete %>
+            <%= button_to "-", cart_decrease_path(item), method: :post %>
+            <%= quantity %>
+            <%= button_to "+", cart_increase_path(item), method: :post %>
           </td>
+          <td><%= number_to_currency(item.price_in_cents / 100.0) %></td>
+          <td><%= number_to_currency((item.price_in_cents * quantity) / 100.0) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-  <%# You will add totals and a "Proceed to Checkout" button here in the next step %>
+  <%# --- Totals Display with Tax Percentages --- %>
+  <div>
+    <p>Subtotal: <%= number_to_currency(@subtotal / 100.0) %></p>
+
+    <%# Display GST if applicable %>
+    <% if @gst > 0 %>
+      <p>GST (<%= number_to_percentage(@province.gst_rate * 100, precision: 2) %>): <%= number_to_currency(@gst / 100.0) %></p>
+    <% end %>
+
+    <%# Display PST if applicable %>
+    <% if @pst > 0 %>
+      <p>PST (<%= number_to_percentage(@province.pst_rate * 100, precision: 2) %>): <%= number_to_currency(@pst / 100.0) %></p>
+    <% end %>
+
+    <%# Display HST if applicable %>
+    <% if @hst > 0 %>
+      <p>HST (<%= number_to_percentage(@province.hst_rate * 100, precision: 2) %>): <%= number_to_currency(@hst / 100.0) %></p>
+    <% end %>
+
+    <p><strong>Total: <%= number_to_currency(@total / 100.0) %></strong></p>
+  </div>
+
+  <%# Proceed to Checkout button will go here in the next step %>
+
 <% else %>
   <p>Your cart is empty.</p>
 <% end %>

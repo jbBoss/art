@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get 'database_viewer', to: 'database_viewer#index'
   get 'database_viewer/:table_name', to: 'database_viewer#show', as: 'database_table'
 
+  post 'cart/increase/:product_id', to: 'carts#increase_quantity', as: 'cart_increase'
+  post 'cart/decrease/:product_id', to: 'carts#decrease_quantity', as: 'cart_decrease'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

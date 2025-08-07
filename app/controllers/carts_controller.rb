@@ -10,9 +10,23 @@ class CartsController < ApplicationController
   # GET /cart
   def show
     session[:cart] ||= {}
-    # We will get the product objects for the view here
     cart_ids = session[:cart].keys
     @cart_items = Product.where(id: cart_ids)
+
+    @subtotal = 0
+    @cart_items.each do |item|
+      @subtotal += item.price_in_cents * session[:cart][item.id.to_s]
+    end
+
+    # Make the province object available to the view
+    @province = current_user.province
+
+    # Calculate taxes using the province object
+    @gst = @subtotal * (@province.gst_rate || 0)
+    @pst = @subtotal * (@province.pst_rate || 0)
+    @hst = @subtotal * (@province.hst_rate || 0)
+
+    @total = @subtotal + @gst + @pst + @hst
   end
 
   # POST /cart/add/:product_id
@@ -34,7 +48,25 @@ class CartsController < ApplicationController
 
     redirect_to cart_path, notice: "Item removed."
   end
+   # app/controllers/carts_controller.rb
 
+# ... (keep the show, add_item, remove_item actions)
+
+  def increase_quantity
+    product_id = params[:product_id].to_s
+    session[:cart][product_id] += 1
+    redirect_to cart_path
+  end
+
+  def decrease_quantity
+    product_id = params[:product_id].to_s
+    session[:cart][product_id] -= 1
+
+    # Remove item completely if quantity reaches 0
+    session[:cart].delete(product_id) if session[:cart][product_id] <= 0
+
+    redirect_to cart_path
+  end
   private
 
   def invalid_product

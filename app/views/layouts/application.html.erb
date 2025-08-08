@@ -29,13 +29,16 @@
         <nav class="user-nav">
           <ul>
             <% if user_signed_in? %>
-              <li><span class="welcome-message">Welcome, <%= current_user.name %>!</span></li>
-              <li><%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-secondary" %></li>
-              <li><%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %></li>
-            <% else %>
-              <li><%= link_to "Sign Up", new_user_registration_path, class: "btn btn-secondary" %></li>
-              <li><%= link_to "Sign In", new_user_session_path, class: "btn" %></li>
-            <% end %>
+  <%# --- This block checks if the user is an admin --- %>
+
+
+  <li><span class="welcome-message">Welcome, <%= current_user.name %>!</span></li>
+  <li><%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-secondary" %></li>
+  <li><%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %></li>
+<% else %>
+  <li><%= link_to "Sign Up", new_user_registration_path, class: "btn btn-secondary" %></li>
+  <li><%= link_to "Sign In", new_user_session_path, class: "btn" %></li>
+<% end %>
           </ul>
         </nav>
       </div>

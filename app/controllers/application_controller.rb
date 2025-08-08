@@ -10,4 +10,7 @@ class ApplicationController < ActionController::Base
     # account update fields
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :address, :province_id])
   end
+   def current_user
+    current_admin_user || super
+  end
 end

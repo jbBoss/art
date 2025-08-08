@@ -14,4 +14,19 @@ class AdminUser < ApplicationRecord
       # add more attributes if needed, like name, role, etc.
     ]
   end
+  def name
+    # Returns a default name for the admin
+    "Administrator"
+  end
+
+  def address
+    # You can return a default address or an empty string
+    "123 Admin Way, Winnipeg, MB"
+  end
+
+  def province
+    # Return a default province or nil.
+    # It might be best to find and return the Manitoba province object.
+    Province.find_by(name: "Manitoba")
+  end
 end

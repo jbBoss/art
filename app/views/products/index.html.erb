@@ -2,7 +2,9 @@
 
 <div class="page-header">
   <h1>Products</h1>
-  <%= link_to "New product", new_product_path, class: "btn" %>
+    <% if current_user.is_a?(AdminUser) %>
+    <%= link_to "Add New Product", new_product_path, class: "btn btn-danger" %>
+  <% end %>
 </div>
 
 

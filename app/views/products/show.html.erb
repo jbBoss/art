@@ -21,10 +21,18 @@
       <%= button_to "Add to Cart", cart_add_path(@product), method: :post, class: "btn btn-primary" %>
     </div>
 
+
+
+    <% if current_user.is_a?(AdminUser) %>
     <div class="admin-actions">
       <%= link_to "Edit this product", edit_product_path(@product), class: "btn btn-secondary" %>
       <%= button_to "Destroy this product", @product, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: 'Are you sure?' } } %>
     </div>
+  <% end %>
+
+
+
+
   </div>
 </div>
 

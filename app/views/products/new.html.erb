@@ -1,11 +1,6 @@
-<% content_for :title, "New product" %>
-
-<h1>New product</h1>
-
-<%= render "form", product: @product %>
-
-<br>
-
-<div>
-  <%= link_to "Back to products", products_path %>
+<%# new.html.erb %>
+<% content_for :title, "New Product" %>
+<div class="page-header">
+  <h1>New Product</h1>
 </div>
+<%= render "form", product: @product %>

@@ -1,6 +1,23 @@
 <h1>Welcome to PicArt Dashboard</h1>
 
+
+
+<ul>
+  <li><%= link_to "Provinces", provinces_path %></li>
+  <li><%= link_to "Categories", categories_path %></li>
   <li><%= link_to "Products", products_path %></li>
+  <li><%= link_to "Orders", orders_path %></li>
+  <li><%= link_to "Ordered Items", ordered_items_path %></li>
+  <li><%= link_to "admin", admin_root_path %></li>
+  <li><%= link_to "DB", database_viewer_path %></li>
+  <li><%= link_to "cart", cart_path %></li>
 
 
-
+</ul>
+<ul>
+  <li><%= link_to "Sign Up", new_user_registration_path %></li>
+  <li><%= link_to "Sign In", new_user_session_path %></li>
+  <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+  <li><%= link_to "Forgot Password?", new_user_password_path %></li>
+  <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+</ul>

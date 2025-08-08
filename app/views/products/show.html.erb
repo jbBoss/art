@@ -1,13 +1,33 @@
-<p style="color: green"><%= notice %></p>
+<div class="product-show-container">
+  <div class="product-show-image">
+    <% if @product.main_image.attached? %>
+      <%= image_tag @product.main_image %>
+    <% else %>
+      <div class="placeholder-image">
+        <span>No Image Available</span>
+      </div>
+    <% end %>
+  </div>
 
-<%= render @product %>
+  <div class="product-show-details">
+    <h1><%= @product.name %></h1>
+    <p class="product-category"><%= @product.category&.name %></p>
+    <p class="product-price"><%= number_to_currency(@product.price_in_cents.to_f / 100) %></p>
+    <div class="product-description">
+      <%= @product.description %>
+    </div>
 
-<div>
+    <div class="product-actions">
+      <%= button_to "Add to Cart", cart_add_path(@product), method: :post, class: "btn btn-primary" %>
+    </div>
 
-  <%= link_to "Edit this product", edit_product_path(@product) %> |
+    <div class="admin-actions">
+      <%= link_to "Edit this product", edit_product_path(@product), class: "btn btn-secondary" %>
+      <%= button_to "Destroy this product", @product, method: :delete, class: "btn btn-danger", form: { data: { turbo_confirm: 'Are you sure?' } } %>
+    </div>
+  </div>
+</div>
 
-  <%= link_to "Back to products", products_path %>
-
-  <%= button_to "Destroy this product", @product, method: :delete %>
-  <%= button_to "Add to Cart", cart_add_path(@product), method: :post %>
+<div class="page-footer">
+  <%= link_to "← Back to products", products_path %>
 </div>

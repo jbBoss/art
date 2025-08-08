@@ -1,33 +1,21 @@
-<p style="color: green"><%= notice %></p>
-
 <% content_for :title, "Products" %>
 
-<h1>Products</h1>
-
-<div class="search-form">
-  <%# This form sends a GET request to the current page (products_path) %>
-  <%= form_with(url: products_path, method: :get) do |form| %>
-    <div class="form-group">
-      <%= form.label :search_by_name, "Search by Name" %>
-      <%# The text_field will now be empty on page load %>
-      <%= form.text_field :search_by_name %>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :category_id, "Filter by Category" %>
-      <%# The collection_select will now default to the blank option %>
-      <%= form.collection_select :category_id, Category.all, :id, :name, { include_blank: 'All Categories' } %>
-    </div>
-
-    <%= form.submit "Search" %>
-  <% end %>
+<div class="page-header">
+  <h1>Products</h1>
+  <%= link_to "New product", new_product_path, class: "btn" %>
 </div>
 
 
-<div id="products">
+<div class="search-form-container">
+  <%= form_with(url: products_path, method: :get, class: "search-form") do |form| %>
+    <%= form.text_field :search_by_name, placeholder: "Search by name...", class: "form-control" %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, { include_blank: 'All Categories' }, class: "form-control" %>
+    <%= form.submit "Search", class: "btn" %>
+  <% end %>
+</div>
+
+<div id="products" class="product-grid">
   <% @products.each do |product| %>
     <%= render product %>
   <% end %>
 </div>
-
-<%= link_to "New product", new_product_path %>

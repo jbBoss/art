@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   get "database_viewer/index"
   get "database_viewer/show"
-  root "home#index"
+  root "products#index"
   get "home/index"
+
+  get '/home', to: 'home#index'
   resources :ordered_items
   resources :orders
   resources :provinces

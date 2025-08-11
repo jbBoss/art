@@ -459,3 +459,114 @@ main.container {
   .right-align { text-align: right; }
 /* <------------------------------------------------------------------> */
 
+/* --- Cart Table Styles --- */
+.cart-table-container {
+  background-color: var(--background-color);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow-x: auto;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cart-table th {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  text-align: left;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.quantity {
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* --- Circular Quantity Buttons --- */
+.btn-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-circle.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.btn-circle.btn-secondary:hover {
+  background-color: var(--secondary-hover-color);
+}
+
+/* Small Button Styling */
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+}
+
+/* Button with icon */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* --- Cart Summary --- */
+.cart-summary {
+  background: var(--background-color);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-top: 20px;
+}
+
+.cart-summary p {
+  margin: 8px 0;
+}
+
+.cart-summary .total {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+/* Checkout Button Container */
+.checkout-container {
+  text-align: right;
+  margin-top: 20px;
+}
+
+

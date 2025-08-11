@@ -1,13 +1,15 @@
-<h1>My Orders</h1>
+<div class="page-header">
+  <h1>My Orders</h1>
+</div>
 
-<div id="orders">
+<div id="orders" class="invoice-box">
   <% if @orders.any? %>
-    <table>
+    <table class="items-table">
       <thead>
         <tr>
           <th>Order Date</th>
           <th>Order ID</th>
-          <th>Total</th>
+          <th class="right-align">Total</th>
           <th></th>
         </tr>
       </thead>
@@ -16,8 +18,8 @@
           <tr>
             <td><%= order.created_at.strftime("%B %d, %Y") %></td>
             <td><%= order.stripe_payment_id %></td>
-            <td><%= number_to_currency(order.total_in_cents / 100.0) %></td>
-            <td><%= link_to "View Details", order %></td>
+            <td class="right-align"><%= number_to_currency(order.total_in_cents / 100.0) %></td>
+            <td class="right-align"><%= link_to "View Details", order, class: "btn btn-secondary" %></td>
           </tr>
         <% end %>
       </tbody>

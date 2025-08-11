@@ -1,64 +1,68 @@
-<%# app/views/carts/show.html.erb %>
-
-<h1>Your Shopping Cart</h1>
-
-<% if @cart_items.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Total</th>
-        <th>Actions</th> <%# Added Actions column header %>
-      </tr>
-    </thead>
-    <tbody>
-      <% @cart_items.each do |item| %>
-        <% quantity = session[:cart][item.id.to_s] %>
-        <tr>
-          <td><%= item.name %></td>
-          <td>
-            <%= button_to "-", cart_decrease_path(item), method: :post %>
-            <%= quantity %>
-            <%= button_to "+", cart_increase_path(item), method: :post %>
-          </td>
-          <td><%= number_to_currency(item.price_in_cents / 100.0) %></td>
-          <td><%= number_to_currency((item.price_in_cents * quantity) / 100.0) %></td>
-          <td>
-            <%# --- This is the remove button --- %>
-            <%= button_to "Remove", cart_remove_path(item), method: :delete %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <%# --- Totals Display --- %>
-  <div>
-    <p>Subtotal: <%= number_to_currency(@subtotal / 100.0) %></p>
-
-    <% if @gst > 0 %>
-      <p>GST (<%= number_to_percentage(@province.gst_rate * 100, precision: 2) %>): <%= number_to_currency(@gst / 100.0) %></p>
-    <% end %>
-
-    <% if @pst > 0 %>
-      <p>PST (<%= number_to_percentage(@province.pst_rate * 100, precision: 2) %>): <%= number_to_currency(@pst / 100.0) %></p>
-    <% end %>
-
-    <% if @hst > 0 %>
-      <p>HST (<%= number_to_percentage(@province.hst_rate * 100, precision: 2) %>): <%= number_to_currency(@hst / 100.0) %></p>
-    <% end %>
-
-    <p><strong>Total: <%= number_to_currency(@total / 100.0) %></strong></p>
-  </div>
+<div class="container">
+  <h1 class="page-header">Your Shopping Cart</h1>
 
   <% if @cart_items.any? %>
-  <div style="text-align: right; margin-top: 20px;">
-    <%= link_to "Confirm and Checkout", new_order_path, class: "checkout-button" %>
-  </div>
-<% end %>
+    <div class="cart-table-container">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th class="center-text">Quantity</th>
+            <th class="right-align">Price</th>
+            <th class="right-align">Total</th>
+            <th class="center-text">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cart_items.each do |item| %>
+            <% quantity = session[:cart][item.id.to_s] %>
+            <tr>
+              <td><%= item.name %></td>
+              <td class="center-text quantity-controls">
+                <%= button_to cart_decrease_path(item), method: :post, class: "btn-circle btn-secondary" do %>
+                  &minus;
+                <% end %>
+                <span class="quantity"><%= quantity %></span>
+                <%= button_to cart_increase_path(item), method: :post, class: "btn-circle btn-secondary" do %>
+                  &#43;
+                <% end %>
+              </td>
+              <td class="right-align"><%= number_to_currency(item.price_in_cents / 100.0) %></td>
+              <td class="right-align"><%= number_to_currency((item.price_in_cents * quantity) / 100.0) %></td>
+              <td class="center-text">
+                <%= button_to cart_remove_path(item), method: :delete, class: "btn btn-danger btn-sm btn-icon" do %>
+                  🗑 Remove
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-<% else %>
-  <p>Your cart is empty.</p>
-<% end %>
+    <%# --- Totals Display --- %>
+    <div class="cart-summary">
+      <p>Subtotal: <strong><%= number_to_currency(@subtotal / 100.0) %></strong></p>
+
+      <% if @gst > 0 %>
+        <p>GST (<%= number_to_percentage(@province.gst_rate * 100, precision: 2) %>): <%= number_to_currency(@gst / 100.0) %></p>
+      <% end %>
+
+      <% if @pst > 0 %>
+        <p>PST (<%= number_to_percentage(@province.pst_rate * 100, precision: 2) %>): <%= number_to_currency(@pst / 100.0) %></p>
+      <% end %>
+
+      <% if @hst > 0 %>
+        <p>HST (<%= number_to_percentage(@province.hst_rate * 100, precision: 2) %>): <%= number_to_currency(@hst / 100.0) %></p>
+      <% end %>
+
+      <p class="total"><strong>Total: <%= number_to_currency(@total / 100.0) %></strong></p>
+    </div>
+
+    <div class="checkout-container">
+      <%= link_to "Confirm and Checkout", new_order_path, class: "btn" %>
+    </div>
+  <% else %>
+    <p>Your cart is empty.</p>
+  <% end %>
+</div>

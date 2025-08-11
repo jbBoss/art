@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "pages/about"
   get "database_viewer/index"
   get "database_viewer/show"
   root "products#index"
@@ -22,7 +23,7 @@ Rails.application.routes.draw do
   post 'cart/increase/:product_id', to: 'carts#increase_quantity', as: 'cart_increase'
   post 'cart/decrease/:product_id', to: 'carts#decrease_quantity', as: 'cart_decrease'
 
-
+ get 'about', to: 'pages#about'
 
 resources :orders, only: [:new, :create]
 
